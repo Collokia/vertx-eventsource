@@ -38,4 +38,11 @@ dependencies {
     compile 'nl.komponents.kovenant:kovenant:2.2.+'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'org.eclipse.jetty:jetty-server:9.2.3.v20140905'    
+    testCompile 'org.eclipse.jetty:jetty-servlet:9.2.3.v20140905'        
+    testCompile 'org.glassfish.jersey.core:jersey-server:2.21'    
+    testCompile 'org.glassfish.jersey.containers:jersey-container-servlet:2.21'        
+    testCompile 'org.glassfish.jersey.containers:jersey-container-servlet-core:2.21'        
+    testCompile 'org.glassfish.jersey.containers:jersey-container-jetty-http:2.21'            
+    testCompile 'org.glassfish.jersey.media:jersey-media-moxy:2.21'    
 }

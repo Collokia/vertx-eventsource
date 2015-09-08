@@ -2,6 +2,7 @@ package org.collokia.vertx.eventsource
 
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Future
+import io.vertx.core.json.DecodeException
 import io.vertx.core.json.JsonObject
 import io.vertx.core.logging.LoggerFactory
 import nl.komponents.kovenant.async
@@ -19,7 +20,6 @@ class EventSourceConsumerVerticle : AbstractVerticle() {
 
     var eventSource: EventSource by Delegates.notNull()
 
-
     override fun start(startFuture: Future<Void>) {
         async {
             val eventTypes  = config().getJsonArray("eventConsumer.eventTypes")?.map { it as? String }?.filterNotNull().orEmpty()
@@ -34,13 +34,20 @@ class EventSourceConsumerVerticle : AbstractVerticle() {
             assert(endpointURI != null, "'eventConsumer.endpointURI' can't be empty")
             assert(address != null, "'eventConsumer.address' can't be empty")
 
+            // TODO: what if we lose connection here?
             val webTarget = client.target(endpointURI)
             eventSource = EventSource(webTarget)
 
-
             val eventListener: EventListener = EventListener { event ->
-                val dataJson = JsonObject(String(event.getRawData(), encoding))
-                vertx.eventBus().send(address, dataJson)
+                val jsonString = String(event.getRawData(), encoding)
+
+                val data = try {
+                    JsonObject(jsonString)
+                } catch (t: DecodeException) {
+                    jsonString
+                }
+
+                vertx.eventBus().send(address, data)
             }
 
             if (eventTypes.isEmpty()) {
@@ -55,8 +62,6 @@ class EventSourceConsumerVerticle : AbstractVerticle() {
 
             log.info("Started EventSource consumer of $endpointURI")
             startFuture.complete()
-
-            eventSource.open()
         }
     }
 
