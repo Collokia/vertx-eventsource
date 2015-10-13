@@ -31,15 +31,15 @@ class EventSourceConsumerVerticle : AbstractVerticle() {
 
             val client = ClientBuilder.newBuilder().register(javaClass<SseFeature>()).build()
 
-            assert(endpointURI != null, "'eventConsumer.endpointURI' can't be empty")
-            assert(address != null, "'eventConsumer.address' can't be empty")
+            assert(endpointURI != null) { "'eventConsumer.endpointURI' can't be empty" }
+            assert(address != null) { "'eventConsumer.address' can't be empty" }
 
             // TODO: what if we lose connection here?
             val webTarget = client.target(endpointURI)
             eventSource = EventSource(webTarget)
 
             val eventListener: EventListener = EventListener { event ->
-                val jsonString = String(event.getRawData(), encoding)
+                val jsonString = String(event.rawData, encoding)
 
                 val data = try {
                     JsonObject(jsonString)
@@ -54,7 +54,7 @@ class EventSourceConsumerVerticle : AbstractVerticle() {
                 eventSource.register(eventListener)
             } else {
                 if (eventTypes.size() > 1) {
-                    eventSource.register(eventListener, eventTypes.first(), * eventTypes.drop(1).copyToArray())
+                    eventSource.register(eventListener, eventTypes.first(), * eventTypes.drop(1).toTypedArray())
                 } else {
                     eventSource.register(eventListener, eventTypes.first())
                 }
