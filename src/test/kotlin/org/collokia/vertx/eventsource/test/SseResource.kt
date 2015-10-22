@@ -23,12 +23,12 @@ class SseResource {
             try {
                 eventOutput.write(OutboundEvent.Builder()
                     .name("WrongEventType")
-                    .data(javaClass<String>(), """{ "data": "Wrong Message!" }""")
+                    .data(String::class.java, """{ "data": "Wrong Message!" }""")
                     .build())
 
                 eventOutput.write(OutboundEvent.Builder()
                     .name("MyEventType")
-                    .data(javaClass<String>(), """{ "data": "Hello World!" }""")
+                    .data(String::class.java, """{ "data": "Hello World!" }""")
                     .build())
             } finally {
                 eventOutput.close()
