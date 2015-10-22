@@ -29,7 +29,7 @@ class EventSourceConsumerVerticle : AbstractVerticle() {
 
             log.info("Trying to start EventSource consumer of $endpointURI")
 
-            val client = ClientBuilder.newBuilder().register(javaClass<SseFeature>()).build()
+            val client = ClientBuilder.newBuilder().register(SseFeature::class.java).build()
 
             assert(endpointURI != null) { "'eventConsumer.endpointURI' can't be empty" }
             assert(address != null) { "'eventConsumer.address' can't be empty" }
@@ -53,7 +53,7 @@ class EventSourceConsumerVerticle : AbstractVerticle() {
             if (eventTypes.isEmpty()) {
                 eventSource.register(eventListener)
             } else {
-                if (eventTypes.size() > 1) {
+                if (eventTypes.size > 1) {
                     eventSource.register(eventListener, eventTypes.first(), * eventTypes.drop(1).toTypedArray())
                 } else {
                     eventSource.register(eventListener, eventTypes.first())

@@ -16,7 +16,6 @@ import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.MethodSorters
-import kotlin.platform.platformStatic
 
 @RunWith(VertxUnitRunner::class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -37,16 +36,16 @@ class EventSourceConsumerVerticleTest {
             .put("eventConsumer.endpointURI", "http://$EventsSourceHost:$EventsSourcePort/events")
 
         @BeforeClass
-        @platformStatic
+        @JvmStatic
         fun before(testContext: TestContext) {
             val context = ServletContextHandler(ServletContextHandler.SESSIONS)
             context.setContextPath("/")
 
             jettyServer.setHandler(context)
 
-            val jerseyServlet = context.addServlet(javaClass<org.glassfish.jersey.servlet.ServletContainer>(), "/*")
+            val jerseyServlet = context.addServlet(org.glassfish.jersey.servlet.ServletContainer::class.java, "/*")
             jerseyServlet.setInitOrder(0)
-            jerseyServlet.setInitParameter("jersey.config.server.provider.classnames", javaClass<SseResource>().getCanonicalName())
+            jerseyServlet.setInitParameter("jersey.config.server.provider.classnames", SseResource::class.java.getCanonicalName())
 
             jettyServer.start()
         }
