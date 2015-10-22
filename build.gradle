@@ -1,7 +1,7 @@
 description "Collokia's Vertx-EventSource Integration"
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.5'
+    gradleVersion = '2.8'
 }
 
 buildscript {
@@ -27,6 +27,9 @@ if (!JavaVersion.current().java8Compatible) {
                                       |  You are using something else,
                                       |  Refresh. Try again.'''.stripMargin())
 }
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()

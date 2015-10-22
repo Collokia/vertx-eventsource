@@ -53,7 +53,7 @@ class EventSourceConsumerVerticle : AbstractVerticle() {
             if (eventTypes.isEmpty()) {
                 eventSource.register(eventListener)
             } else {
-                if (eventTypes.size() > 1) {
+                if (eventTypes.size > 1) {
                     eventSource.register(eventListener, eventTypes.first(), * eventTypes.drop(1).toTypedArray())
                 } else {
                     eventSource.register(eventListener, eventTypes.first())
