@@ -29,7 +29,7 @@ if (!JavaVersion.current().java8Compatible) {
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8ava t
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
