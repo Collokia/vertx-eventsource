@@ -52,7 +52,8 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     testCompile "junit:junit:$version_junit"
-    testCompile "org.eclipse.jetty:jetty-server:$version_jetty"    
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlinVersion"
+    testCompile "org.eclipse.jetty:jetty-server:$version_jetty"
     testCompile "org.eclipse.jetty:jetty-servlet:$version_jetty"        
     testCompile "org.glassfish.jersey.core:jersey-server:$version_jersey"    
     testCompile "org.glassfish.jersey.containers:jersey-container-servlet:$version_jersey"        

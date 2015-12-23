@@ -1,6 +1,6 @@
 package org.collokia.vertx.eventsource.test
 
-import nl.komponents.kovenant.async
+import nl.komponents.kovenant.task
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.servlet.ServletContextHandler
 import org.glassfish.jersey.media.sse.EventOutput
@@ -19,7 +19,7 @@ class SseResource {
     fun getServerSendEvents(): EventOutput {
         val eventOutput = EventOutput()
 
-        async {
+        task {
             try {
                 eventOutput.write(OutboundEvent.Builder()
                     .name("WrongEventType")
