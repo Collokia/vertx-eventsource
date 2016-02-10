@@ -9,6 +9,7 @@ import nl.komponents.kovenant.task
 import org.glassfish.jersey.media.sse.EventListener
 import org.glassfish.jersey.media.sse.EventSource
 import org.glassfish.jersey.media.sse.SseFeature
+import java.nio.charset.Charset
 import javax.ws.rs.client.ClientBuilder
 import kotlin.properties.Delegates
 
@@ -23,7 +24,7 @@ class EventSourceConsumerVerticle : AbstractVerticle() {
     override fun start(startFuture: Future<Void>) {
         task {
             val eventTypes  = config().getJsonArray("eventConsumer.eventTypes")?.map { it as? String }?.filterNotNull().orEmpty()
-            val encoding    = config().getString("eventConsumer.encoding") ?: "UTF-8"
+            val encoding    = Charset.forName(config().getString("eventConsumer.encoding") ?: "UTF-8")
             val endpointURI = config().getString("eventConsumer.endpointURI")
             val address     = config().getString("eventConsumer.address")
 
