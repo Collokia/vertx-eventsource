@@ -1,7 +1,7 @@
 description "Collokia's Vertx-EventSource Integration"
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.8'
+    gradleVersion = '2.10'
 }
 
 buildscript {
@@ -11,9 +11,11 @@ buildscript {
             url 'http://oss.sonatype.org/content/repositories/snapshots'
         }
         mavenCentral()
+        /*
         maven {
             url 'http://dl.bintray.com/kotlin/kotlin-eap'
         }
+        */
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
@@ -39,6 +41,7 @@ repositories {
     maven {
         url = 'http://oss.sonatype.org/content/repositories/snapshots/'
     }
+    /*
     maven {
         url 'http://dl.bintray.com/kotlin/kotlin-eap'
     }
@@ -48,6 +51,7 @@ repositories {
     maven {
         url 'http://dl.bintray.com/mplatvoet/komponents'
     }
+    */
 }
 
 dependencies {
